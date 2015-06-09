@@ -31,14 +31,16 @@ Currently, this module is specific to Hammerspoon.
 $ git clone https://github.com/asmagill/hammerspoon_doc
 $ cd hammerspoon_doc
 $ [PREFIX=/usr/local/share/lua/5.2/] make install
+$ [PREFIX=/usr/local/share/lua/5.2/] make install-docs
 ~~~
 
 Note that if you do not provide `PREFIX`, then it defaults to ~/.hammerspoon.
 
-### Usage
+### Example Usage
 
 ~~~lua
 docMaker = require("hs._asm.doc")
+docMaker.registerJSONFile(docMaker.locateJSONFile("hs._asm.doc"))
 doc = docMaker.fromRegisteredFiles()
 ~~~
 
