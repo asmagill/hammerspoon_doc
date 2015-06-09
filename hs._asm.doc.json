@@ -1,0 +1,51 @@
+[
+  {
+    "name": "hs._asm.doc",
+    "desc": "Create documentation objects for interactive help within Hammerspoon",
+    "doc": "Create documentation objects for interactive help within Hammerspoon\n\nThe documentation object created is a table with tostring metamethods allowing access to a specific functions documentation by appending the path to the method or function to the object created.\n\nFrom the Hammerspoon console:\n\n      doc = require(\"hs._asm.doc\").fromRegisteredFiles()\n      doc.hs.application\n\nResults in:\n      Manipulate running applications\n\n      [submodules]\n      hs.application.watcher\n\n      [subitems]\n      hs.application:activate([allWindows]) -> bool\n      hs.application:allWindows() -> window[]\n          ...\n      hs.application:visibleWindows() -> win[]\n\nBy default, the internal core documentation is already registered for inclusion within this documentation object, but you can register additional documentation from 3rd party modules with `hs._asm.registerJSONFile(...)` or limit the documentation to a single specific file with `hs._asm.fromJSONFile(...)`.",
+    "items": [
+      {
+        "type": "Function",
+        "name": "validateJSONFile",
+        "def": "hs._asm.doc.validateJSONFile(jsonfile) -> status, message|table",
+        "doc": "Validate a JSON file potential inclusion in the Hammerspoon internal documentation.\n\nParameters:\n * jsonfile - A string containing the location of a JSON file\n\nReturns:\n * status - Boolean flag indicating if the file was registered or not.\n * message|table - If the file did not contain valid JSON data, then a message indicating the error is returned; otherwise the parsed JSON data is returned as a table."
+      },
+      {
+        "type": "Function",
+        "name": "registerJSONFile",
+        "def": "hs._asm.doc.registerJSONFile(jsonfile) -> status[, message]",
+        "doc": "Register a JSON file for inclusion when Hammerspoon generates internal documentation.\n\nParameters:\n * jsonfile - A string containing the location of a JSON file\n\nReturns:\n * status - Boolean flag indicating if the file was registered or not.  If the file was not registered, then a message indicating the error is also returned."
+      },
+      {
+        "type": "Function",
+        "name": "unregisterJSONFile",
+        "def": "hs._asm.doc.unregisterJSONFile(jsonfile) -> status[, message]",
+        "doc": "Remove a JSON file from the list of registered files.\n\nParameters:\n * jsonfile - A string containing the location of a JSON file\n\nReturns:\n * status - Boolean flag indicating if the file was unregistered or not.  If the file was not unregistered, then a message indicating the error is also returned."
+      },
+      {
+        "type": "Function",
+        "name": "registeredJSONFiles",
+        "def": "hs._asm.doc.registeredJSONFiles() -> table",
+        "doc": "Returns the list of registered JSON files.\n\nParameters:\n * None\n\nReturns:\n * a table containing the list of registered JSON files"
+      },
+      {
+        "type": "Function",
+        "name": "locateJSONFile",
+        "def": "hs._asm.doc.locateJSONFile(module) -> path | false, message",
+        "doc": "Locates the JSON file corresponding to the specified module by searching package.path and package.cpath.\n\nParameters:\n * module - the name of the module to locate a JSON file for\n\nReturns:\n * the path to the JSON file, or `false, error` if unable to locate a corresponding JSON file.\n\nNotes:\n * The JSON should be named 'full.module.name.json' and located in the same directory as the `lua` or `so` file which is used when the module is loaded via `require`."
+      },
+      {
+        "type": "Function",
+        "name": "fromJSONFile",
+        "def": "hs._asm.doc.fromJSONFile(jsonfile) -> doc-array",
+        "doc": "Builds a doc array construct from the JSON file provided.\n\nParameters:\n * jsonfile - A string containing the location of a JSON file\n\nReturns:\n * A table containing the documentation data loaded from the JSON file"
+      },
+      {
+        "type": "Function",
+        "name": "fromRegisteredFiles",
+        "def": "hs._asm.doc.fromRegisteredFiles(jsonfile) -> doc-array",
+        "doc": "Builds a doc array construct from the registered JSON files.\n\nParameters:\n * None\n\nReturns:\n * A table containing the documentation data loaded from the registered JSON files"
+      }
+    ]
+  }
+]
