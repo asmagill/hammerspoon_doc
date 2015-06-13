@@ -24,8 +24,8 @@
       },
       {
         "type": "Function",
-        "name": "registeredJSONFiles",
-        "def": "hs._asm.doc.registeredJSONFiles() -> table",
+        "name": "registeredFiles",
+        "def": "hs._asm.doc.registeredFiles() -> table",
         "doc": "Returns the list of registered JSON files.\n\nParameters:\n * None\n\nReturns:\n * a table containing the list of registered JSON files"
       },
       {
@@ -43,8 +43,8 @@
       {
         "type": "Function",
         "name": "fromRegisteredFiles",
-        "def": "hs._asm.doc.fromRegisteredFiles(jsonfile) -> doc-array",
-        "doc": "Builds a doc array construct from the registered JSON files.\n\nParameters:\n * None\n\nReturns:\n * A table containing the documentation data loaded from the registered JSON files"
+        "def": "hs._asm.doc.fromRegisteredFiles() -> doc-array",
+        "doc": "Builds a doc array construct from the registered JSON files.\n\nParameters:\n * None\n\nReturns:\n * A table containing the documentation data loaded from the registered JSON files\n\nNotes:\n * By default, the internal core documentation is already registered.  If you wish to remove it from the list of registered sources, issue the command `hs._asm.doc.unregisterJSONFile(hs.docstrings_json_file)`.\n * The documentation object is created from the sources that are registered at the time of its invocation. If you register additional files later, you will need to reissue this command to build the updated documentation object."
       }
     ]
   }

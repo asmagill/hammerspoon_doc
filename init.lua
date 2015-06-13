@@ -305,7 +305,7 @@ function module.fromJSONFile(docsfile)
   return internalBuild(json.decode(content))
 end
 
---- hs._asm.doc.fromRegisteredFiles(jsonfile) -> doc-array
+--- hs._asm.doc.fromRegisteredFiles() -> doc-array
 --- Function
 --- Builds a doc array construct from the registered JSON files.
 ---
