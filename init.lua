@@ -28,28 +28,9 @@ local module = {}
 
 -- private variables and methods -----------------------------------------
 
-local json = require("hs.json")
-local fs   = require("hs.fs")
-
--- Provide function 'f' as per _Programming_In_Lua,_3rd_ed_, page 52; otherwise order is ascii order ascending.
--- e.g. function(m,n) return not (m < n) end would do descending ascii, assuming string keys.
-local sorted_keys = function(t, f)
-    if t then
-        local a = {}
-        for n in pairs(t) do table.insert(a, n) end
-        table.sort(a, f)
-        local i = 0      -- iterator variable
-        local iter = function ()   -- iterator function
-            i = i + 1
-            if a[i] == nil then return nil
-                else return a[i], t[a[i]]
-            end
-        end
-        return iter
-    else
-        return function() return nil end
-    end
-end
+local json    = require("hs.json")
+local fs      = require("hs.fs")
+local fnutils = require("hs.fnutils")
 
 local function item_tostring(item)
   return item[2] .. ": " .. item[1] .. "\n\n" .. item[3] .. "\n"
@@ -59,14 +40,14 @@ local function group_tostring(group)
   local str = group.__doc .. "\n\n"
 
   str = str .. "[submodules]\n"
-  for name, item in sorted_keys(group) do
+  for name, item in fnutils.sortByKeys(group) do
     if name ~= '__doc' and name ~= '__name' and getmetatable(item) == getmetatable(group) then
       str = str .. item.__name .. "\n"
     end
   end
 
   str = str .. "\n" .. "[subitems]\n"
-  for name, item in sorted_keys(group) do
+  for name, item in fnutils.sortByKeys(group) do
     if name ~= '__doc' and name ~= '__name' and getmetatable(item) ~= getmetatable(group) then
       str = str .. item[1] .. "\n"
     end
@@ -78,7 +59,7 @@ end
 local function doc_tostring(doc)
   local str = '[modules]\n'
 
-  for name, group in sorted_keys(doc) do
+  for name, group in fnutils.sortByKeys(doc) do
     str = str .. group.__name .. '\n'
   end
 
@@ -116,19 +97,6 @@ local internalBuild = function(rawdocs)
     end
   end
   return doc
-end
-
-local split = function(div,str)
-    if (div=='') then return { str } end
-    local pos,arr = 0,{}
-    for st,sp in function() return string.find(str,div,pos) end do
-        table.insert(arr,string.sub(str,pos,st-1))
-        pos = sp + 1
-    end
-    if string.sub(str,pos) ~= "" then
-        table.insert(arr,string.sub(str,pos))
-    end
-    return arr
 end
 
 local registeredJSONFiles = { hs.docstrings_json_file }
