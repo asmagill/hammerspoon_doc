@@ -7,7 +7,7 @@
 local http     = require("hs.http")
 local inspect  = require("hs.inspect")
 local timer    = require("hs.timer")
-local textConv = require("utils.textConv")
+local textConv = require("textConv")
 local json     = require("hs.json")
 
 local verNum             = string.gsub(_VERSION,"Lua ","")
