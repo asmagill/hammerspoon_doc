@@ -1,6 +1,6 @@
 -- -[x] do separate parse of manual text for lua.man and lua.func so manual actually approximates real manual with function defs in chapters
 -- -[x] instead of converting . to _ in func, create sub tables
--- -[ ] same for man?
+-- -[x] same for man?  No, hs.doc then splits toc into submodules/modules
 -- -[x] move func to root?
 -- -[ ] a way to programmatically figure out SkipThese?
 
@@ -283,8 +283,6 @@ print("++ Parsing manual...")
 Built in ]].._VERSION..[[ functions and variables.
 
 The text for this documentation is originally from ]]..luaDocsBaseURL..[[ but has been programmatically parsed and rearranged for use with the Hammerspoon internal documentation system.  Any errors, mistakes, or omissions are likely the result of this processing and is in no way a reflection on Lua.org or their work.  If in doubt about anything presented in this lua section of the Hammerspoon documentation, please check the above web site for the authoritative answer.
-
-Notification of errors in the processing of this documentation or suggestions on better ways to present this data are welcome.
 ]],
             items = {}
         },
@@ -366,7 +364,8 @@ Notification of errors in the processing of this documentation or suggestions on
     for i = #removeBuiltinItems, 1, -1 do table.remove(docRoots.builtin.items, removeBuiltinItems[i]) end
 
 -- flatten so it matches the expected doc format.
-    local documentFormatArray = {}
+    local documentFormatArray -- comment out for debugging purposes
+    documentFormatArray = {}
     for i,v in pairs(docRoots) do
         table.insert(documentFormatArray, v)
     end
